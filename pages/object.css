@@ -1,0 +1,288 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+}
+
+.object-container {
+  background-color: #11223d;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.back-btn {
+  background-color: #fff;
+  color: #11223d;
+  border: none;
+  padding: 15px 25px;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.back-btn:hover {
+  background-color: #1a3760;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .back-btn {
+    display: none;
+  }
+}
+
+.submit-request-btn {
+  background-color: #fff;
+  color: #11223d;
+  border: none;
+  margin-bottom: 25px;
+  padding: 22px 24px;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+@media (max-width: 768px) {
+  .submit-request-btn {
+    padding: 12px 24px;
+  }
+}
+.submit-request-btn:hover {
+  background-color: #1a3760;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.object-title {
+  font-size: 50px;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+.main-img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 20px 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.short-desc {
+  font-size: 17px;
+  margin: 10px 0 30px;
+  color: #dddddd;
+  text-align: center;
+}
+
+.details-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  margin: 30px 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  color: #11223d;
+}
+
+.info-title {
+  font-weight: 500;
+  font-size: 35px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1a3760;
+  margin-bottom: 12px;
+}
+
+.info {
+  font-size: 20px;
+  margin: 6px 0;
+  font-weight: 500;
+}
+
+.full-desc {
+  margin-top: 30px;
+  font-size: 28px;
+  color: #fff;
+  line-height: 1.7;
+  white-space: pre-line;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .object-container {
+    padding: 15px;
+  }
+  .object-title {
+    font-size: 35px;
+  }
+  .main-img {
+    margin: 15px 0;
+  }
+  .short-desc {
+    font-size: 16px;
+  }
+  .details-box {
+    padding: 15px;
+    margin: 20px 0;
+  }
+  .info-title {
+    font-size: 22px;
+  }
+  .price {
+    font-size: 22px;
+  }
+  .info {
+    font-size: 18px;
+  }
+  .full-desc {
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .object-title {
+    font-size: 30px;
+  }
+  .price {
+    font-size: 20px;
+  }
+  .info-title {
+    font-size: 25px;
+  }
+  .info {
+    font-size: 18px;
+  }
+  .full-desc {
+    font-size: 20px;
+  }
+}
+.modal {
+  display: none; /* скрыто по умолчанию */
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  display: flex; /* показать модальное окно */
+}
+
+.modal-content {
+  background-color: #11223d;
+  color: #fff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+.modal-content h2 {
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+.modal-content p {
+  margin-bottom: 30px;
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.modal-content input {
+  padding: 20px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: #fff;
+  color: #11223d;
+}
+.modal-content input input::-moz-placeholder {
+  color: #5c6298;
+  font-weight: 500;
+}
+.modal-content input input::placeholder {
+  color: #5c6298;
+  font-weight: 500;
+}
+.modal-content button {
+  background-color: #fff;
+  color: #11223d;
+  border: none;
+  padding: 18px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.modal-content button button:hover {
+  background-color: #e0e0e0;
+}
+.modal-content .WhatsApp {
+  text-decoration: none;
+  padding: 16px;
+  color: #fff;
+  background-color: rgb(32, 122, 32);
+  border-radius: 10px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #ff6b6b;
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px 15px;
+    width: 95%;
+  }
+  .modal-content h2 {
+    font-size: 18px;
+  }
+  .modal-content input,
+  .modal-content button {
+    font-size: 15px;
+  }
+  .close-btn {
+    top: 8px;
+    right: 12px;
+    font-size: 28px;
+  }
+}/*# sourceMappingURL=object.css.map */

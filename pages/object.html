@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Объект</title>
+  <link rel="stylesheet" href="object.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&family=Great+Vibes&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="object-details" class="object-container"></div>
+
+  <!-- Модальное окно (как в index.html) -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Оставьте заявку <br> Мы свяжемся с вами!</h2>
+      <form id="modalRequestForm" action="https://script.google.com/macros/s/AKfycby2GXagAT_i3N_2BHqHobnt2PltED-pbCNIWtjN4gknZSx8AlPTqeAg7-aXeBxQDOL1YQ/exec" method="POST">
+        <input type="text" id="modal-name" name="name" placeholder="Имя:" required><br>
+        <input type="text" id="modal-phone" name="phone" placeholder="Телефон:" required><br>
+        <button type="submit">Отправить</button>
+      </form>
+      <p id="modalResponseMessage"></p>
+      <p>Или свяжитесь с нами через</p>
+      <a class="WhatsApp" href="https://wa.me/79388937090">WhatsApp</a>
+    </div>
+  </div>
+
+  <script src="object.js"></script>
+  <script src="../zayavka.js"></script>  <!-- Подключение zayavka.js для модалки -->
+</body>
+</html>
