@@ -149,8 +149,8 @@ section:nth-child(even) {
     align-items: normal;
     flex-direction: column;
     padding: 30px;
-    margin-top: 40px;
-    width: 90%;
+    margin-top: 20px;
+    width: 100%;
     background-color: #11223d;
   }
 }
@@ -251,14 +251,16 @@ section:nth-child(even) {
 }
 @media (max-width: 768px) {
   .menu__body .menu-button {
-    font-size: 30px;
-    color: #fff;
-    background: none;
-    margin-left: 0;
-    padding: 0;
-    border: none;
-    line-height: 70px;
-    text-align: start;
+    display: block !important;
+    width: calc(100% - 48px) !important; /* во всю ширину панели с внутренними отступами */
+    margin: 16px 24px 0 !important; /* отступы от краёв панели */
+    padding: 12px 16px !important;
+    line-height: normal !important;
+    text-align: center !important;
+    background: #fff !important;
+    color: #11223d !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 14px !important;
   }
 }
 
@@ -790,6 +792,59 @@ span {
   margin: 0;
 }
 
+/* === Map robustness fixes (MapView width/height + grid shrink issues) === */
+.yandex-map, .MapView, .map-view {
+  /* Ensure the map itself fills available space and never looks "narrow" */
+  /* Yandex Maps inner containers must stretch fully */
+  /* Prevent grid children from expanding the column and forcing the map to shrink */
+}
+.yandex-map .map-wrapper, .yandex-map__wrap, .yandex-map__wrapper, .MapView .map-wrapper, .MapView__wrap, .MapView__wrapper, .map-view .map-wrapper, .map-view__wrap, .map-view__wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 24px;
+}
+.yandex-map .map, .yandex-map__map, .yandex-map .yandex-map__map, .yandex-map .map-canvas, .MapView .map, .MapView__map, .MapView .yandex-map__map, .MapView .map-canvas, .map-view .map, .map-view__map, .map-view .yandex-map__map, .map-view .map-canvas {
+  width: 100%;
+  height: 640px;
+  min-height: 560px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.yandex-map .ymaps-2-1-79-map, .yandex-map .ymaps-2-1-79-inner-panes, .yandex-map .ymaps-2-1-79-map-container, .yandex-map .ymaps-2-1-79-viewport, .MapView .ymaps-2-1-79-map, .MapView .ymaps-2-1-79-inner-panes, .MapView .ymaps-2-1-79-map-container, .MapView .ymaps-2-1-79-viewport, .map-view .ymaps-2-1-79-map, .map-view .ymaps-2-1-79-inner-panes, .map-view .ymaps-2-1-79-map-container, .map-view .ymaps-2-1-79-viewport {
+  width: 100% !important;
+  height: 100% !important;
+}
+.yandex-map .map-wrapper > *, .yandex-map__wrap > *, .MapView .map-wrapper > *, .MapView__wrap > *, .map-view .map-wrapper > *, .map-view__wrap > * {
+  min-width: 0;
+}
+@media (max-width: 1280px) {
+  .yandex-map .map, .yandex-map__map, .yandex-map .yandex-map__map, .yandex-map .map-canvas, .MapView .map, .MapView__map, .MapView .yandex-map__map, .MapView .map-canvas, .map-view .map, .map-view__map, .map-view .yandex-map__map, .map-view .map-canvas {
+    height: 560px;
+    min-height: 480px;
+  }
+}
+@media (max-width: 1024px) {
+  .yandex-map .map-wrapper, .yandex-map__wrap, .yandex-map__wrapper, .MapView .map-wrapper, .MapView__wrap, .MapView__wrapper, .map-view .map-wrapper, .map-view__wrap, .map-view__wrapper {
+    grid-template-columns: 1fr;
+  }
+  .yandex-map .map, .yandex-map__map, .yandex-map .yandex-map__map, .yandex-map .map-canvas, .MapView .map, .MapView__map, .MapView .yandex-map__map, .MapView .map-canvas, .map-view .map, .map-view__map, .map-view .yandex-map__map, .map-view .map-canvas {
+    height: auto;
+    aspect-ratio: 16/11;
+    min-height: 360px;
+  }
+}
+@media (max-width: 600px) {
+  .yandex-map .map, .yandex-map__map, .yandex-map .yandex-map__map, .yandex-map .map-canvas, .MapView .map, .MapView__map, .MapView .yandex-map__map, .MapView .map-canvas, .map-view .map, .map-view__map, .map-view .yandex-map__map, .map-view .map-canvas {
+    aspect-ratio: 16/12;
+    min-height: 300px;
+  }
+}
+
+/* Contacts defensive fix: avoid overflow breaking grid/flex calculations */
+.contacts__col, .contacts__col--info, .contacts__col--media {
+  min-width: 0;
+}
+
 .blog .title {
   color: #fff;
 }
@@ -915,6 +970,208 @@ span {
   }
 }
 /* ===== CONTACTS: равные отступы сверху/снизу + чуть крупнее контент ===== */
+/* 1440px и меньше (MacBook Pro 14/16 в масштабе по умолчанию) */
+@media (max-width: 1440px) {
+  .container {
+    max-width: 1100px;
+  }
+  /* Хедер/меню */
+  .menu {
+    padding: 18px 18px;
+  }
+  .menu .menu__logo {
+    font-size: 36px;
+  }
+  .menu .menu__list {
+    gap: 40px;
+  }
+  .menu .menu__link {
+    font-size: 22px;
+  }
+  .menu .menu-button {
+    font-size: 22px;
+    padding: 10px 14px;
+    margin-left: 60px;
+    border-radius: 12px;
+  }
+  /* Hero */
+  .about {
+    padding: 180px 20px 40px;
+  }
+  .about .H-content {
+    gap: 28px;
+    max-width: 1100px;
+  }
+  .about .title span {
+    font-size: 64px;
+    line-height: 1.05;
+  }
+  .about .title .about-title {
+    font-size: 22px;
+    margin-top: 18px;
+  }
+  .about .title .search {
+    margin-top: 28px;
+    max-width: 420px;
+  }
+  .about .title .search .nameSearch {
+    height: 52px;
+    font-size: 18px;
+  }
+  .about #hot-slider {
+    height: 520px;
+    border-radius: 16px;
+  }
+  .about #hot-slider .slider-title {
+    font-size: 34px;
+  }
+  .about #hot-slider .slider-button {
+    font-size: 16px;
+    padding: 10px 22px;
+  }
+  /* Каталог */
+  #catalog .catalog__title {
+    font-size: 40px;
+    margin-bottom: 36px;
+  }
+  .catalog__list {
+    gap: 22px;
+  }
+  .card img {
+    height: 300px;
+  }
+  .card h3 {
+    font-size: 20px;
+  }
+  .card p {
+    font-size: 15px;
+  }
+  /* Карта объектов */
+  .yandex-map .container {
+    max-width: 1100px;
+  }
+  .yandex-map .map-title {
+    font-size: 40px;
+    margin-bottom: 36px;
+  }
+  .yandex-map .map-layout {
+    gap: 28px;
+  }
+  .yandex-map .map-panel {
+    width: 100%;
+    flex: 1.5;
+  }
+  .yandex-map .map-panel .map-view {
+    width: 100%;
+    height: 700px;
+    border-radius: 20px;
+  }
+  .yandex-map .object-panel {
+    flex: 1;
+  }
+  .yandex-map .object-panel .object-list {
+    padding: 18px;
+    max-height: 600px;
+  }
+  .yandex-map .object-panel .object-list a {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+  /* Контакты */
+  .contacts {
+    padding: 72px 0;
+  }
+  .contacts .container {
+    max-width: 1100px;
+  }
+  .contacts__card {
+    padding: 28px;
+    gap: 24px;
+    grid-template-columns: 1.2fr 0.8fr;
+    border-radius: 20px;
+    min-height: 440px;
+  }
+  .contacts__intro .contacts__title {
+    font-size: clamp(28px, 3.2vw, 44px);
+  }
+  .contacts__intro .contacts__subtitle {
+    font-size: 16px;
+  }
+  .contacts__list {
+    gap: 12px;
+  }
+  .contact-card {
+    padding: 16px;
+  }
+  .contact-card__icon {
+    width: 44px;
+    height: 44px;
+  }
+  .contact-card__content h3 {
+    font-size: 18px;
+  }
+  .contact-card__content p {
+    font-size: 15px;
+  }
+}
+/* 1280px и меньше (MacBook Air 13/14 + Windows 125% DPI) */
+@media (max-width: 1280px) {
+  .container {
+    max-width: 1000px;
+  }
+  .menu {
+    padding: 14px 16px;
+  }
+  .menu .menu__logo {
+    font-size: 32px;
+  }
+  .menu .menu__list {
+    gap: 28px;
+  }
+  .menu .menu__link {
+    font-size: 20px;
+  }
+  .menu .menu-button {
+    font-size: 20px;
+    margin-left: 32px;
+  }
+  .about {
+    padding: 150px 16px 36px;
+  }
+  .about .title span {
+    font-size: 56px;
+  }
+  .about .title .about-title {
+    font-size: 20px;
+  }
+  .about #hot-slider {
+    height: 470px;
+  }
+  #catalog .catalog__title {
+    font-size: 34px;
+  }
+  .card img {
+    height: 260px;
+  }
+  .yandex-map .map-panel .map-view {
+    height: 580px;
+  }
+  .yandex-map .object-panel .object-list {
+    max-height: 520px;
+  }
+  .contacts__card {
+    min-height: 400px;
+    padding: 24px;
+  }
+}
+/* Safari на macOS: уменьшение общей плотности шрифтов */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 1440px) {
+    html {
+      font-size: 15.5px;
+    }
+  }
+}
 .contacts {
   padding: 90px 0;
   background: radial-gradient(1200px 600px at 100% 0, rgba(17, 34, 61, 0.05), transparent 60%), radial-gradient(900px 500px at 0 100%, rgba(17, 34, 61, 0.04), transparent 60%), #fff;
@@ -1099,202 +1356,68 @@ span {
   background: #f5f8ff;
 }
 
-/* ===== MacBook compact layer ===== */
-/* 1440px и меньше (MacBook Pro 14/16 в масштабе по умолчанию) */
-@media (max-width: 1440px) {
-  .container {
-    max-width: 1100px;
+/* === 1440 compact: та же раскладка, только чуть компактнее === */
+@media (min-width: 1200px) and (max-width: 1440px) {
+  /* На всякий случай: секция карты не должна быть flex-контейнером */
+  #yandex-map {
+    display: block !important;
   }
-  /* Хедер/меню */
-  .menu {
-    padding: 18px 18px;
+  /* Контейнер: немного уже, как «легкий зум-даун» */
+  #yandex-map > .container {
+    max-width: 1180px; /* при желании 1160–1220 */
+    padding-left: 20px;
+    padding-right: 20px;
   }
-  .menu .menu__logo {
-    font-size: 36px;
+  /* Межколоночный зазор чуть меньше, чтобы все «село» красиво */
+  #yandex-map .map-layout {
+    gap: 28px; /* было 40px */
+    align-items: start;
   }
-  .menu .menu__list {
-    gap: 40px;
-  }
-  .menu .menu__link {
-    font-size: 22px;
-  }
-  .menu .menu-button {
-    font-size: 22px;
-    padding: 10px 14px;
-    margin-left: 60px;
-    border-radius: 12px;
-  }
-  /* Hero */
-  .about {
-    padding: 180px 20px 40px;
-  }
-  .about .H-content {
-    gap: 28px;
-    max-width: 1100px;
-  }
-  .about .title span {
-    font-size: 64px;
-    line-height: 1.05;
-  }
-  .about .title .about-title {
-    font-size: 22px;
-    margin-top: 18px;
-  }
-  .about .title .search {
-    margin-top: 28px;
-    max-width: 420px;
-  }
-  .about .title .search .nameSearch {
-    height: 52px;
-    font-size: 18px;
-  }
-  .about #hot-slider {
-    height: 520px;
-    border-radius: 16px;
-  }
-  .about #hot-slider .slider-title {
-    font-size: 34px;
-  }
-  .about #hot-slider .slider-button {
-    font-size: 16px;
-    padding: 10px 22px;
-  }
-  /* Каталог */
-  #catalog .catalog__title {
-    font-size: 40px;
-    margin-bottom: 36px;
-  }
-  .catalog__list {
-    gap: 22px;
-  }
-  .card img {
-    height: 300px;
-  }
-  .card h3 {
-    font-size: 20px;
-  }
-  .card p {
-    font-size: 15px;
-  }
-  /* Карта объектов */
-  .yandex-map .container {
-    max-width: 1100px;
-  }
-  .yandex-map .map-title {
-    font-size: 40px;
-    margin-bottom: 36px;
-  }
-  .yandex-map .map-layout {
-    gap: 28px;
-  }
-  .yandex-map .map-panel {
-    width: auto;
+  /* ГЛАВНОЕ: убираем жёсткую ширину у карты и задаём отношение колонок */
+  #yandex-map .map-panel {
+    width: auto !important; /* перебиваем width:900px */
+    flex: 2 1 0; /* карта ≈ 2 части */
+    min-width: 0;
     height: auto;
   }
-  .yandex-map .map-panel .map-view {
-    height: 600px;
-    border-radius: 16px;
+  #yandex-map .object-panel {
+    flex: 1 1 0; /* список ≈ 1 часть */
+    min-width: 0;
   }
-  .yandex-map .object-panel .object-list {
-    padding: 18px;
-    max-height: 580px;
+  /* Высота карты — немного ниже, но полноширинная внутри своей колонки */
+  #yandex-map .map-panel .map-view,
+  #yandex-map #map,
+  #yandex-map .map,
+  #yandex-map .map-canvas {
+    width: 100%;
+    height: 560px; /* десктоп 640 → компакт 560 */
+    min-height: 520px;
+    border-radius: 18px;
+    overflow: hidden;
   }
-  .yandex-map .object-panel .object-list a {
-    font-size: 16px;
-    padding: 12px 0;
+  /* Яндекс-контейнеры тянем на всю площадь */
+  #yandex-map .ymaps-2-1-79-map,
+  #yandex-map .ymaps-2-1-79-inner-panes,
+  #yandex-map .ymaps-2-1-79-map-container,
+  #yandex-map .ymaps-2-1-79-viewport {
+    width: 100% !important;
+    height: 100% !important;
   }
-  /* Контакты */
-  .contacts {
-    padding: 72px 0;
-  }
-  .contacts .container {
-    max-width: 1100px;
-  }
-  .contacts__card {
-    padding: 28px;
-    gap: 24px;
-    grid-template-columns: 1.2fr 0.8fr;
-    border-radius: 20px;
-    min-height: 440px;
-  }
-  .contacts__intro .contacts__title {
-    font-size: clamp(28px, 3.2vw, 44px);
-  }
-  .contacts__intro .contacts__subtitle {
-    font-size: 16px;
-  }
-  .contacts__list {
-    gap: 12px;
-  }
-  .contact-card {
-    padding: 16px;
-  }
-  .contact-card__icon {
-    width: 44px;
-    height: 44px;
-  }
-  .contact-card__content h3 {
-    font-size: 18px;
-  }
-  .contact-card__content p {
-    font-size: 15px;
-  }
-}
-/* 1280px и меньше (часть MacBook 13/14 в другом масштабе + Windows 125% DPI) */
-@media (max-width: 1280px) {
-  .container {
-    max-width: 1000px;
-  }
-  .menu {
-    padding: 14px 16px;
-  }
-  .menu .menu__logo {
-    font-size: 32px;
-  }
-  .menu .menu__list {
-    gap: 28px;
-  }
-  .menu .menu__link {
-    font-size: 20px;
-  }
-  .menu .menu-button {
-    font-size: 20px;
-    margin-left: 32px;
-  }
-  .about {
-    padding: 150px 16px 36px;
-  }
-  .about .title span {
-    font-size: 56px;
-  }
-  .about .title .about-title {
-    font-size: 20px;
-  }
-  .about #hot-slider {
-    height: 470px;
-  }
-  #catalog .catalog__title {
-    font-size: 34px;
-  }
-  .card img {
-    height: 260px;
-  }
-  .yandex-map .map-panel .map-view {
-    height: 520px;
-  }
-  .yandex-map .object-panel .object-list {
+  /* Список — по высоте соразмерно карте */
+  #yandex-map .object-panel .object-list,
+  #yandex-map .object-list {
     max-height: 520px;
   }
-  .contacts__card {
-    min-height: 400px;
-    padding: 24px;
-  }
+  /* Лёгкая общая «компактность» типографики на этом брейкпоинте */
+  html {
+    font-size: 15.5px;
+  } /* ~-3..-5% к rem */
 }
-/* Если шрифт на Mac в Safari кажется слишком крупным из-за системного зума */
+/* (опционально) только для Safari/macOS добавь ещё -0.5rem */
 @supports (-webkit-touch-callout: none) {
-  @media (max-width: 1440px) {
+  @media (min-width: 1200px) and (max-width: 1440px) {
     html {
-      font-size: 15.5px;
-    } /* тонкая коррекция типографики в WebKit */
+      font-size: 15px;
+    }
   }
 }/*# sourceMappingURL=style.css.map */
