@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="price">${object.price || ""}</p>
           <p class="info">${object.deliveryDate || ""}</p>
           <p class="info">${object.floors || ""}</p>
-          <p class="info">${object.commercialFloors || ""}</p>
+          <p class="info">${object.commercialFloors || ""} - Коммерческие помещения</p>
           <p class="info">${object.parking || ""}</p>
         </div>
 
